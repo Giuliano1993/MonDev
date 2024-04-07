@@ -45,12 +45,19 @@ const translateNewsletter = async ()=>{
     <div>
       <CopybleText id="translatedMarkdown" title="English Markdown" :text="englishMarkdown"></CopybleText>
       <CopybleText id="translatedHtml" title="English Html" :text="englishHtml"></CopybleText> 
+    </div>
+    <div>
       <Suspense>
-
-        <SecretSave label="openAi" name="openAi"></SecretSave>
-      <template #fallback>
-          carico
-      </template>
+        <SecretSave name="openAiSecret" label="openAi"></SecretSave>
+        <template #fallback>
+            carico
+        </template>
+      </Suspense>
+      <Suspense>
+        <SecretSave name="brevoApi" label="brevo"></SecretSave>
+        <template #fallback>
+            carico
+        </template>
       </Suspense>
     </div>
   </div>

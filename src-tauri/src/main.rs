@@ -4,7 +4,7 @@
 mod outer;
 use outer::openai::askOpenAi;
 use outer::openai::OpenAiCompletion;
-use outer::utils::{saveSecret, get_secret};
+use outer::utils::{save_secret, get_secret};
 use tauri::CustomMenuItem;
 use tauri::Menu;
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -37,7 +37,7 @@ fn main() {
         }
         
       }) 
-        .invoke_handler(tauri::generate_handler![translate,get_secret])
+        .invoke_handler(tauri::generate_handler![translate,get_secret,save_secret])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

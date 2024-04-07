@@ -3,9 +3,19 @@ use anyhow::Error;
 use serde_json::{json, to_string_pretty, Value};
 
 
-pub fn saveSecret(key: &str) -> String{
-    fs::write("./keys.txt", "hello");
-    format!("secret saved")
+#[tauri::command]
+pub fn save_secret(key: &str, value: &str) -> String{
+    let file_content = fs::read("./keys.txt");
+    let mut json = keys_to_json(file_content);
+
+    json[key] = json!(value);
+
+    let new_content = serde_json::to_string(&json);
+    match new_content {
+        Ok(str_value) => fs::write("./keys.txt", str_value),
+        Err(_)=>panic!("oh no")
+    };
+    format!("Saved succesfully")
 }
 
 
@@ -14,7 +24,13 @@ pub fn get_secret(key: &str) ->String{
     let keys = fs::read("./keys.txt");
     let json = keys_to_json(keys);
 
-    format!("{}",json[key])
+    let key_val = json.get(key);
+    let mut value = "";
+    match key_val {
+        Some(val)=>value = val.as_str().unwrap(),
+        None => () 
+    }
+    format!("{}",value)
     //format!("ciao")
 }
 
