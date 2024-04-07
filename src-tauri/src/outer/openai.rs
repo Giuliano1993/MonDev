@@ -2,6 +2,8 @@ use serde_json::json;
 use reqwest::{Client, Error, Response};
 use serde::{Deserialize, Serialize};
 
+use crate::outer::utils::get_secret_backend;
+
 #[derive(Serialize, Deserialize)]
 pub struct OpenAiMessage {
     role: String,
@@ -32,10 +34,11 @@ pub async fn askOpenAi(text: &str) -> String {
             "content":text
           }
         ]
-   }); 
+   });
+   let  open_ai_key : String= get_secret_backend("openAiSecret");
     let response = Client::new()
     .post("https://api.openai.com/v1/chat/completions")
-    .bearer_auth("")
+    .bearer_auth(open_ai_key)
     .json(&body).send().await.unwrap().text().await.unwrap();
 
     format!("{}",response)

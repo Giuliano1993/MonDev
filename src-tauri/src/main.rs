@@ -15,7 +15,7 @@ async fn translate(text: String) -> String {
     
     //&text[..]-> it's a pattern that allows to convert from String to str
     // it takes a full slice of the string, char by char, creating the str
-    let openai_response = askOpenAi(&text[..]).await; 
+    let openai_response = askOpenAi(&text[..]).await;
     let translation_response: OpenAiCompletion = serde_json::from_str(&openai_response).unwrap();
     format!("{}",translation_response.choices[0].message.content)
 

@@ -18,6 +18,14 @@ pub fn get_secret(key: &str) ->String{
     //format!("ciao")
 }
 
+pub fn get_secret_backend(key: &str) -> String {
+
+    let keys = fs::read("./keys.txt");
+    let json = keys_to_json(keys);
+    return String::from_str(json[key].as_str().unwrap()).unwrap() ;
+}
+
+
 pub fn keys_to_json(keys: Result<Vec<u8>, io::Error>) -> Value {
     let json : Value;
     match keys {

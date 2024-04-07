@@ -1,3 +1,4 @@
+- [] error handling if openAi key is not good
 - [] improve interface and readability
 - [] save keys
 - [] create campaign with Brevo Api
