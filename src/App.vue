@@ -26,6 +26,11 @@ const translateNewsletter = async ()=>{
   })
  
 }
+const testCampagin = async ()=>{
+  invoke("create_brevo_campaign").then((r)=>{
+    console.log(r);
+  })
+}
 </script>
 
 
@@ -33,6 +38,7 @@ const translateNewsletter = async ()=>{
 <template>
   <div class="container">
     <h1>MonDev station</h1>
+    <button @click="testCampagin">Create test campaign</button>
     <div>
       <div>
         <h3>Italian Markdown</h3> 

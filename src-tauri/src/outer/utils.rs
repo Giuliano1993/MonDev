@@ -1,6 +1,5 @@
-use std::{fs, io::{self, BufRead, ErrorKind}, str::FromStr};
-use anyhow::Error;
-use serde_json::{json, to_string_pretty, Value};
+use std::{fs, io::{self, ErrorKind}, str::FromStr};
+use serde_json::{json,Value};
 
 
 #[tauri::command]
@@ -50,7 +49,7 @@ pub fn keys_to_json(keys: Result<Vec<u8>, io::Error>) -> Value {
            let json_result: Result<Value, serde_json::Error>  = serde_json::from_str(&string_keys);
            match json_result {
                Ok(json_val)=> json = json_val,
-               Err(e)=> json = Value::from_str("{}").unwrap()
+               Err(_)=> json = Value::from_str("{}").unwrap()
            }
         },
         Err(error)=>{

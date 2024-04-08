@@ -1,5 +1,5 @@
 use serde_json::json;
-use reqwest::{Client, Error, Response};
+use reqwest::{Client};
 use serde::{Deserialize, Serialize};
 
 use crate::outer::utils::get_secret_backend;
@@ -21,7 +21,7 @@ pub struct OpenAiCompletion {
 }
 
 
-pub async fn askOpenAi(text: &str) -> String {
+pub async fn ask_open_ai(text: &str) -> String {
     let body = json!({
         "model":"gpt-3.5-turbo",
         "messages": [
