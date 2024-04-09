@@ -1,3 +1,6 @@
+use core::panic;
+use std::fs;
+
 use serde_json::json;
 use reqwest::{Client};
 use serde::{Serialize, Deserialize};
@@ -6,9 +9,16 @@ use crate::outer::utils::get_secret_backend;
 
 
 #[tauri::command]
-pub async fn create_campaing(name: String, subject: String, previewText: String, list: u8, content: String) -> String {
+pub async fn create_campaing(name: String, subject: String, previewText: String, list: u8, mut content: String) -> String {
 
     let api_key = get_secret_backend("brevoApi");
+    let template = fs::read_to_string("./template.html");
+    match template {
+        Ok(template_string)=>{
+          content = template_string.replace("[[theTitle]]",&previewText).replace("[[theContent]]", &content); 
+        },
+        Err(_)=>panic!("Oh No")
+    }
     let body = json!({
         "name":name,
         "subject":subject,
