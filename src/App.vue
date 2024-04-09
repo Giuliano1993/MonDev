@@ -5,6 +5,7 @@ import { marked } from "marked";
 import CopybleText from "./components/CopybleText.vue";
 import SecretSave from "./components/SecretSave.vue";
 import  NewsletterModal  from "./components/NewsletterModal.vue";
+import ConfigModal from "./components/ConfigModal.vue";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 const markDownText  = ref("");
@@ -18,7 +19,7 @@ const englishHtml = computed(()=>{
 
   return marked.parse(englishMarkdown.value);
 });
-
+const showConfigModal = ref(false);
 const showCampaignModal = ref(false);
 enum Langs{
   EN = "En",
@@ -35,11 +36,7 @@ const translateNewsletter = async ()=>{
   })
  
 }
-const testCampagin = async ()=>{
-  invoke("create_brevo_campaign").then((r)=>{
-    console.log(r);
-  })
-}
+
  const showModal = (lang: Langs) =>{
   showCampaignModal.value = true;
   campaingLang.value = lang
@@ -50,40 +47,29 @@ const testCampagin = async ()=>{
 <template>
   <div class="container">
     <h1>MonDev station</h1>
-    <div>
+    <div class="row">
       <div>
         <h3>Italian Markdown</h3> 
         <textarea v-model="markDownText"></textarea>
       </div>
       <CopybleText id="markdownPreview" title="Italian Html" :text="htmlMarkdown"></CopybleText>
       
-    <button @click="showModal(Langs.IT)">Create test campaign</button>
+    <button class="campaignButton" @click="showModal(Langs.IT)">Create campaign</button>
     </div>
     <button @click="translateNewsletter">Translate newsletter</button>
-    <div>
+    <div class="row">
       <CopybleText id="translatedMarkdown" title="English Markdown" :text="englishMarkdown"></CopybleText>
       <CopybleText id="translatedHtml" title="English Html" :text="englishHtml"></CopybleText> 
       
-      <button @click="showModal(Langs.EN)">Create test campaign</button>
+      <button @click="showModal(Langs.EN)">Create  campaign</button>
     </div>
     <div>
-      <Suspense>
-        <SecretSave name="openAiSecret" label="openAi"></SecretSave>
-        <template #fallback>
-            carico
-        </template>
-      </Suspense>
-      <Suspense>
-        <SecretSave name="brevoApi" label="brevo"></SecretSave>
-        <template #fallback>
-            carico
-        </template>
-      </Suspense>
+      <button @click="showConfigModal = true">Show Configs</button>
     </div>
   </div>
 
   <NewsletterModal v-if="showCampaignModal" @close="showCampaignModal = false" :content="campaingLang == Langs.EN ? englishHtml : htmlMarkdown"></NewsletterModal>
-  
+  <ConfigModal v-if="showConfigModal" @close="showConfigModal = false"></ConfigModal>  
 
 </template>
 
@@ -97,8 +83,12 @@ const testCampagin = async ()=>{
     gap: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    flex-wrap: wrap;
     & > * {
-      flex-basis: 50%;
+      flex-basis: calc(50% - 10px);
+    }
+    & > button{
+      flex-basis: 100%;
     }
     & > div{
 

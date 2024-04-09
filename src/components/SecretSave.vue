@@ -35,7 +35,6 @@ onMounted(()=>{
 
 <template>
   <div>
-    adsad
     <label>
       {{ label }}
     </label>
@@ -45,4 +44,14 @@ onMounted(()=>{
 </template>
 
 <style scoped>
+div{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  label{
+    text-transform: capitalize;
+    font-size: large;
+    font-weight: bold;
+  }
+}
 </style>
