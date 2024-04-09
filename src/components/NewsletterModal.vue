@@ -17,7 +17,17 @@ const content = ref(props.content || "");
 
 
 const createCampagin = ()=>{
-
+  const pars = {
+    name: campaingnName.value,
+    subject: subject.value,
+    previewText: previewText.value,
+    list: Number(recipients.value),
+    content: content.value
+  }
+  console.log(pars);
+  invoke("create_campaing",pars).then((r)=>{
+    console.log(r)
+  })
 }
 </script>
 

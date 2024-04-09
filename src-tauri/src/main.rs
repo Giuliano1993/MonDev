@@ -23,12 +23,7 @@ async fn translate(text: String) -> String {
 
 }
 
-#[tauri::command]
-async fn create_brevo_campaign()->String{
-  let response = create_campaing().await;
-  let creation_response: Value = serde_json::from_str(&response).unwrap();
-  format!("{}", creation_response)
-}
+
 
 fn main() {
 
@@ -46,7 +41,7 @@ fn main() {
         }
         
       }) 
-        .invoke_handler(tauri::generate_handler![translate,get_secret,save_secret,create_brevo_campaign])
+        .invoke_handler(tauri::generate_handler![translate,get_secret,save_secret,create_campaing])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
