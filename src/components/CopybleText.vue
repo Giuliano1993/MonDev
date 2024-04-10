@@ -1,11 +1,13 @@
-<script setup>
+<script setup lang="ts">
 
 import { writeText } from "@tauri-apps/api/clipboard";
 import { ref } from "vue";
-import { open } from "@tauri-apps/api/dialog";
 const props = defineProps({
 
-  text: String,
+  text: {
+    type: String || Promise<string>,
+    required: true
+  },
   id: String,
   title: String
 })
@@ -19,14 +21,6 @@ const copyText = ()=>{
   writeText(props.text)
   setTimeout(()=>{justCopied.value = false},2000)
 }
-
-//const openFile = async ()=>{
-//  const openedFile = await open({
-//    directory:false,
-//    multiple: false,
-//  })
-//  console.log(openedFile);
-//}
 
 </script>
 

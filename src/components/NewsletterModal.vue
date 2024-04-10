@@ -3,7 +3,10 @@ import Modal from './Modal.vue'
 import { ref, Ref } from "vue";
 import { invoke } from "@tauri-apps/api";
 const props = defineProps({
-  content: String
+  content: {
+    type: String || Promise<string>,
+    required: true
+  }
 })
 defineEmits([
   'close'

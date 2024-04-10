@@ -3,7 +3,6 @@ import {computed, ref, Ref} from "vue";
 import { invoke } from "@tauri-apps/api";
 import { marked } from "marked";
 import CopybleText from "./components/CopybleText.vue";
-import SecretSave from "./components/SecretSave.vue";
 import  NewsletterModal  from "./components/NewsletterModal.vue";
 import ConfigModal from "./components/ConfigModal.vue";
 // This starter template is using Vue 3 <script setup> SFCs

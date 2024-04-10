@@ -1,7 +1,7 @@
 - [] error handling if openAi key is not good
 - [] improve interface and readability
-- [] save keys
-- [] create campaign with Brevo Api
+- [x] save keys
+- [x] create campaign with Brevo Api
 - [] save and open file ( so i can work sinked with obsidian )
 - [] preview: open view with html preview
 - [] newsletter history

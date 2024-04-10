@@ -29,19 +29,13 @@ fn main() {
 
   let config = CustomMenuItem::new("config".to_string(), "Config");
 
-  let menu = Menu::new().add_item(config);
     tauri::Builder::default()
-      .menu(menu)
-      .on_menu_event(|event|{
-        match event.menu_item_id(){
-            "config" => {
-                println!("ciaone");
-            },
-            _ => {}
-        }
-        
-      }) 
-        .invoke_handler(tauri::generate_handler![translate,get_secret,save_secret,create_campaing])
+        .invoke_handler(tauri::generate_handler![
+          translate,
+          get_secret,
+          save_secret,
+          create_campaing
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
