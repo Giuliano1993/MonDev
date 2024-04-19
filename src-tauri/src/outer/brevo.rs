@@ -9,13 +9,13 @@ use crate::outer::utils::get_secret_backend;
 
 
 #[tauri::command]
-pub async fn create_campaing(name: String, subject: String, previewText: String, list: u8, mut content: String) -> String {
+pub async fn create_campaing(name: String, subject: String, preview_text: String, list: u8, mut content: String) -> String {
 
     let api_key = get_secret_backend("brevoApi");
     let template = fs::read_to_string("./template.html");
     match template {
         Ok(template_string)=>{
-          content = template_string.replace("[[theTitle]]",&previewText).replace("[[theContent]]", &content); 
+          content = template_string.replace("[[theTitle]]",&preview_text).replace("[[theContent]]", &content); 
         },
         Err(_)=>panic!("Oh No")
     }
@@ -26,7 +26,7 @@ pub async fn create_campaing(name: String, subject: String, previewText: String,
          "name":"mondev",
          "email":"mondev@ghostylab.com"   
         },
-        "previewText":previewText,
+        "previewText":preview_text,
         "recipients":{
             "listIds":[list]
         },
