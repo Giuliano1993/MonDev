@@ -1,8 +1,16 @@
 - [] error handling if openAi key is not good
 - [] improve interface and readability
+  - [] approach text first:
+    - improve write experience
+    - show preview while writing
+- [] implement correction system: ortography
+- [] implement correction system: diff before and after correction
 - [x] save keys
 - [x] create campaign with Brevo Api
 - [] save and open file ( so i can work sinked with obsidian )
 - [] preview: open view with html preview
 - [] newsletter history
 - [] create mdev.to article draft
+- [] confirm message on campaing creation
+- [] loader for translation
+- [] linkedin post area
