@@ -14,3 +14,4 @@
 - [] confirm message on campaing creation
 - [] loader for translation
 - [] linkedin post area
+- [] support multiple IA model ( connect with ollama running models)
