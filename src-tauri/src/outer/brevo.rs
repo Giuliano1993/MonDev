@@ -2,8 +2,7 @@ use core::panic;
 use std::fs;
 
 use serde_json::json;
-use reqwest::{Client};
-use serde::{Serialize, Deserialize};
+use reqwest::Client;
 
 use crate::outer::utils::get_secret_backend;
 

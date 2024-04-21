@@ -5,10 +5,10 @@ mod outer;
 use outer::brevo::create_campaing;
 use outer::openai::ask_open_ai;
 use outer::openai::OpenAiCompletion;
+use outer::devto::create_article;
 use outer::utils::{save_secret, get_secret};
 use tauri::CustomMenuItem;
-use tauri::Menu;
-use serde_json::{json,Value};
+use serde_json;
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 
 
@@ -34,7 +34,8 @@ fn main() {
           translate,
           get_secret,
           save_secret,
-          create_campaing
+          create_campaing,
+          create_article
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

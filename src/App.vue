@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, ref, Ref} from "vue";
+import {computed, onMounted, ref, Ref} from "vue";
 import { invoke } from "@tauri-apps/api";
 import { marked } from "marked";
 import CopybleText from "./components/CopybleText.vue";
@@ -12,7 +12,13 @@ const htmlMarkdown = computed(()=>{
   return marked.parse(markDownText.value);
 })
 
+const newsletterText = ref(null);
+onMounted(()=>{
+  if(newsletterText.value){
+    newsletterText.value.focus();
+  }
 
+})
 const englishMarkdown = ref("");
 const englishHtml = computed(()=>{
 
@@ -35,7 +41,11 @@ const translateNewsletter = async ()=>{
   })
  
 }
-
+const devtoDraft = async ()=>{
+  invoke("create_article", {content: englishMarkdown.value}).then((r)=>{
+    console.log(r)
+  })  
+}
  const showModal = (lang: Langs) =>{
   showCampaignModal.value = true;
   campaingLang.value = lang
@@ -49,7 +59,7 @@ const translateNewsletter = async ()=>{
     <div class="row">
       <div>
         <h3>Italian Markdown</h3> 
-        <textarea v-model="markDownText"></textarea>
+        <textarea v-model="markDownText" ref="newsletterText"></textarea>
       </div>
       <CopybleText id="markdownPreview" title="Italian Html" :text="htmlMarkdown"></CopybleText>
       
@@ -61,6 +71,7 @@ const translateNewsletter = async ()=>{
       <CopybleText id="translatedHtml" title="English Html" :text="englishHtml"></CopybleText> 
       
       <button @click="showModal(Langs.EN)">Create  campaign</button>
+      <button @click="devtoDraft">Prepare Article</button>
     </div>
     <div>
       <button @click="showConfigModal = true">Show Configs</button>
@@ -74,6 +85,15 @@ const translateNewsletter = async ()=>{
 
 <style>
 .container{
+  textarea{
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    padding: 0 10px;
+  }
   h1{
     color: #1a6936;
   }

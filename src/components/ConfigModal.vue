@@ -27,6 +27,14 @@ defineEmits(['close'])
           carico
       </template>
     </Suspense>
+    <Suspense>
+      <div>
+        <SecretSave name="devtoApi" label="Dev.to"></SecretSave>
+      </div>
+      <template #fallback>
+          carico
+      </template>
+    </Suspense>
   </Modal>
 </template>
 
