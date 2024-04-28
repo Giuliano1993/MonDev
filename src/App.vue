@@ -89,8 +89,8 @@ const devtoDraft = async ()=>{
     border: none;
     outline: none;
     background: transparent;
-    color: white;
-    font-size: 20px;
+    color: rgb(224, 224, 224);
+    font-size: 16px;
     width: 100%;
     padding: 0 10px;
   }

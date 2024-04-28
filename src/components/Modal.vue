@@ -21,7 +21,7 @@ defineEmits(['close'])
   .modal-overlay{
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.5);
