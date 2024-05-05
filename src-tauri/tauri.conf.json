@@ -16,11 +16,6 @@
         "all": false,
         "open": true
       },
-      "http":{
-        "all": true,
-        "request": true
-        
-      },
       "dialog":{
         "all":true,
         "open":true,
