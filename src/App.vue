@@ -5,6 +5,7 @@ import { marked } from "marked";
 import CopybleText from "./components/CopybleText.vue";
 import  NewsletterModal  from "./components/NewsletterModal.vue";
 import ConfigModal from "./components/ConfigModal.vue";
+import { getClient, Body, ResponseType } from "@tauri-apps/api/http";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 const markDownText  = ref("");
@@ -42,9 +43,36 @@ const translateNewsletter = async ()=>{
  
 }
 const devtoDraft = async ()=>{
-  invoke("create_article", {content: englishMarkdown.value}).then((r)=>{
+
+const articleBody = Body.json({
+        article: {
+        title: "titolo bozza",
+        body_markdown: markDownText.value,
+        published: false,
+        series: "MonDEV",
+        main_image: "",
+        canonical_url: "",
+        description: "",
+        tags: "",
+        organization_id: 0
+        }
+      })
+      console.log('ciao')
+      const client = await getClient();
+      console.log('megaciao')
+      const reponse = await client.post("https://dev.to/api/articles",articleBody,{
+        headers:[
+          {"Authorization": "____"}
+        ],
+        responseType: ResponseType.JSON,
+      }).catch((e)=>{
+        console.log(e)
+      })
+      console.log(reponse);
+  
+  /*invoke("create_article", {content: englishMarkdown.value}).then((r)=>{
     console.log(r)
-  })  
+  }) */ 
 }
  const showModal = (lang: Langs) =>{
   showCampaignModal.value = true;
@@ -78,7 +106,7 @@ const devtoDraft = async ()=>{
     </div>
   </div>
 
-  <NewsletterModal v-if="showCampaignModal" @close="showCampaignModal = false" :content="campaingLang == Langs.EN ? englishHtml : htmlMarkdown"></NewsletterModal>
+  <NewsletterModal :lang="campaingLang" v-if="showCampaignModal" @close="showCampaignModal = false" :content="campaingLang == Langs.EN ? englishHtml : htmlMarkdown"></NewsletterModal>
   <ConfigModal v-if="showConfigModal" @close="showConfigModal = false"></ConfigModal>  
 
 </template>
