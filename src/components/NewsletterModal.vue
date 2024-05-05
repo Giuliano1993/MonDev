@@ -2,19 +2,30 @@
 import Modal from './Modal.vue'
 import { ref, Ref } from "vue";
 import { invoke } from "@tauri-apps/api";
+enum Langs{
+  EN = "En",
+  IT = "IT"
+}
 const props = defineProps({
   content: {
     type: String || Promise<string>,
     required: true
+  },
+  lang:{
+    type: Langs || null
   }
 })
 defineEmits([
   'close'
 ])
-const campaingnName = ref("");
-const subject = ref("");
+
+const preSubjText = props.lang == "En" ? "MonDEV - The Developer's Monday" : "MonDEV - Il lunedì dello sviluppatore";
+const preRecipientGroup = props.lang == "En" ? 4 : 3;
+
+const campaingnName = ref(props.lang == "En" ? " - EN" : " - IT");
+const subject = ref(preSubjText);
 const previewText = ref("");
-const recipients: Ref<null|Number> = ref(null);
+const recipients: Ref<null|Number> = ref(preRecipientGroup);
 const content = ref(props.content || "");
 
 
