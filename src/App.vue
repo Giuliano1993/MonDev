@@ -1,112 +1,44 @@
 <script setup lang="ts">
 import {computed, onMounted, ref, Ref} from "vue";
-import { invoke } from "@tauri-apps/api";
-import { marked } from "marked";
-import CopybleText from "./components/CopybleText.vue";
-import  NewsletterModal  from "./components/NewsletterModal.vue";
+
 import ConfigModal from "./components/ConfigModal.vue";
-import { getClient, Body, ResponseType } from "@tauri-apps/api/http";
+import Newsletter from "./components/Newsletter.vue";
+import Posts from "./components/Posts.vue";
+import Articles from "./components/Articles.vue";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-const markDownText  = ref("");
-const htmlMarkdown = computed(()=>{
-  return marked.parse(markDownText.value);
-})
+enum Menu{
+  NEWSLETTER = "newsletter",
+  ARTICLES = "articles",
+  POSTS = "posts"
+}
 
-const newsletterText = ref(null);
-onMounted(()=>{
-  if(newsletterText.value){
-    newsletterText.value.focus();
-  }
+const window: Ref<null|Menu>= ref(null);
 
-})
-const englishMarkdown = ref("");
-const englishHtml = computed(()=>{
-
-  return marked.parse(englishMarkdown.value);
-});
 const showConfigModal = ref(false);
-const showCampaignModal = ref(false);
-enum Langs{
-  EN = "En",
-  IT = "IT"
-}
-const campaingLang: Ref<null|Langs>= ref(null);
 
-const translateNewsletter = async ()=>{
 
-  invoke("translate",{text:markDownText.value}).then((r)=>{
-    console.log(r)
-    console.log('tutto fatto');
-    englishMarkdown.value = String(r);
-  })
- 
-}
-const devtoDraft = async ()=>{
-
-const articleBody = Body.json({
-        article: {
-        title: "titolo bozza",
-        body_markdown: markDownText.value,
-        published: false,
-        series: "MonDEV",
-        main_image: "",
-        canonical_url: "",
-        description: "",
-        tags: "",
-        organization_id: 0
-        }
-      })
-      console.log('ciao')
-      const client = await getClient();
-      console.log('megaciao')
-      const reponse = await client.post("https://dev.to/api/articles",articleBody,{
-        headers:[
-          {"Authorization": "Bearer 7EW2Pfhs1zBpHuVZEWk4LR4c"}
-        ],
-        responseType: ResponseType.JSON,
-      }).catch((e)=>{
-        console.log(e)
-      })
-      console.log(reponse);
-  
-  /*invoke("create_article", {content: englishMarkdown.value}).then((r)=>{
-    console.log(r)
-  }) */ 
-}
- const showModal = (lang: Langs) =>{
-  showCampaignModal.value = true;
-  campaingLang.value = lang
- }
 </script>
 
 
 <template>
   <div class="container">
-    <h1>MonDev station</h1>
-    <div class="row">
-      <div>
-        <h3>Italian Markdown</h3> 
-        <textarea v-model="markDownText" ref="newsletterText"></textarea>
-      </div>
-      <CopybleText id="markdownPreview" title="Italian Html" :text="htmlMarkdown"></CopybleText>
-      
-    <button class="campaignButton" @click="showModal(Langs.IT)">Create campaign</button>
-    </div>
-    <button @click="translateNewsletter">Translate newsletter</button>
-    <div class="row">
-      <CopybleText id="translatedMarkdown" title="English Markdown" :text="englishMarkdown"></CopybleText>
-      <CopybleText id="translatedHtml" title="English Html" :text="englishHtml"></CopybleText> 
-      
-      <button @click="showModal(Langs.EN)">Create  campaign</button>
-      <button @click="devtoDraft">Prepare Article</button>
-    </div>
+    <nav>
+      <ul>
+        <li @click="window = Menu.NEWSLETTER">Newsletter</li>
+        <li @click="window = Menu.ARTICLES">Articles</li>
+        <li @click="window = Menu.POSTS">Posts</li>
+      </ul>
+    </nav>
+    <Newsletter v-if="window === Menu.NEWSLETTER"/>
+    <Articles v-else-if="window === Menu.ARTICLES"/>
+    <Posts v-else-if="window === Menu.POSTS"/>
     <div>
       <button @click="showConfigModal = true">Show Configs</button>
     </div>
   </div>
 
-  <NewsletterModal :lang="campaingLang" v-if="showCampaignModal" @close="showCampaignModal = false" :content="campaingLang == Langs.EN ? englishHtml : htmlMarkdown"></NewsletterModal>
+  
   <ConfigModal v-if="showConfigModal" @close="showConfigModal = false"></ConfigModal>  
 
 </template>
