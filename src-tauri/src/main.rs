@@ -3,7 +3,7 @@
 
 mod outer;
 use outer::brevo::create_campaing;
-use outer::openai::ask_open_ai;
+use outer::openai::{ask_open_ai,get_correction};
 use outer::openai::OpenAiCompletion;
 use outer::devto::create_article;
 use outer::utils::{save_secret, get_secret};
@@ -35,7 +35,8 @@ fn main() {
           get_secret,
           save_secret,
           create_campaing,
-          create_article
+          create_article,
+          get_correction
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
