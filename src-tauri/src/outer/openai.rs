@@ -1,5 +1,7 @@
+use std::{clone, ptr::copy};
+
 use serde_json::json;
-use reqwest::{Client};
+use reqwest::Client;
 use serde::{Deserialize, Serialize};
 
 use crate::outer::utils::get_secret_backend;
@@ -46,7 +48,7 @@ pub async fn ask_open_ai(text: &str) -> String {
 }
 
 #[tauri::command]
-pub async fn get_correction(text: &str) -> OpenAiCompletion{
+pub async fn get_correction(text: String) -> OpenAiCompletion{
     let body = json!({
       "model":"gpt-3.5-turbo",
       "messages": [
@@ -57,7 +59,7 @@ pub async fn get_correction(text: &str) -> OpenAiCompletion{
           Return the result in a json formatted string. \n
           The json keys for each error should be: \n
           location: the section of the article where the error si located, \n
-          error-type: the type of the error: should be one of [Misspelling, Grammar, Capitalization, Clarity], \n
+          errorType: the type of the error: should be one of [Misspelling, Grammar, Capitalization, Clarity], \n
           error: the wrong test,\n
           correction: the correct text"
         },
@@ -73,9 +75,8 @@ pub async fn get_correction(text: &str) -> OpenAiCompletion{
   .bearer_auth(open_ai_key)
   .json(&body).send().await.unwrap();
 
-
   let open_ai_response: OpenAiCompletion = response.json().await.unwrap();
 
-  return response;
+  return open_ai_response;
 }
 

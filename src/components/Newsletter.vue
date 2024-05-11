@@ -5,7 +5,6 @@ import { invoke } from "@tauri-apps/api";
 import { marked } from "marked";
 import CopybleText from "./CopybleText.vue";
 import  NewsletterModal  from "./NewsletterModal.vue";
-import { getClient, Body, ResponseType } from "@tauri-apps/api/http";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 const markDownText  = ref("");

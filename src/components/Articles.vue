@@ -5,13 +5,46 @@ import { invoke } from '@tauri-apps/api';
 
 defineProps([])
 defineEmits([])
+type TextError = {
+  location: String,
+  errorType: String,
+  error: String,
+  correction:String
+}
 const articleText = ref("");
-const corrections: Ref<null|Array<any>> = ref(null);
+const corrections: Ref<null|Array<TextError>> = ref(null);
+
+const getCorrections = function(){
+  invoke("get_correction",{text:articleText.value}).then((res: any)=>{
+
+    console.log(res.choices[0].message.content)
+    console.log(JSON.parse(res.choices[0].message.content))
+    corrections.value = JSON.parse(res.choices[0].message.content).errors
+  })
+}
 </script>
 
 <template>
   <textarea v-model="articleText"></textarea>
-  <button>Get Corrections</button>
+  <button @click="getCorrections">Get Corrections</button>
+  <table>
+    <thead>
+      <tr>
+        <th>location</th>
+        <th>Error type</th>
+        <th>Error</th>
+        <th>Correction</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="c in corrections">
+        <td>{{ c.location }}</td>
+        <td>{{ c.errorType }}</td>
+        <td>{{ c.error }}</td>
+        <td>{{ c.correction }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <style scoped>
