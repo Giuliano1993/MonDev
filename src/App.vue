@@ -25,16 +25,20 @@ const showConfigModal = ref(false);
   <div class="container">
     <nav>
       <ul>
-        <li @click="window = Menu.NEWSLETTER">Newsletter</li>
-        <li @click="window = Menu.ARTICLES">Articles</li>
-        <li @click="window = Menu.POSTS">Posts</li>
+        <li><h3>GhostyLab</h3></li>
+        <li :class="window === Menu.NEWSLETTER ? 'active' : ''" @click="window = Menu.NEWSLETTER">Newsletter</li>
+        <li :class="window === Menu.ARTICLES ? 'active' : ''" @click="window = Menu.ARTICLES">Articles</li>
+        <li :class="window === Menu.POSTS ? 'active' : ''" @click="window = Menu.POSTS">Posts</li>
+        <li>
+          <button @click="showConfigModal = true">Show Configs</button>
+        </li>
       </ul>
     </nav>
     <Newsletter v-if="window === Menu.NEWSLETTER"/>
     <Articles v-else-if="window === Menu.ARTICLES"/>
     <Posts v-else-if="window === Menu.POSTS"/>
     <div>
-      <button @click="showConfigModal = true">Show Configs</button>
+      
     </div>
   </div>
 
@@ -53,6 +57,38 @@ const showConfigModal = ref(false);
     font-size: 16px;
     width: 100%;
     padding: 0 10px;
+  }
+  nav{
+    width: 100%;
+    border: 1px solid #1a6936;
+    ul{
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      align-items: center;
+      padding-left: 0;
+      li{
+        list-style: none;
+        cursor: pointer;
+        &.active{
+          text-decoration: underline #1a6936;
+          text-decoration-thickness: 3px;
+        }
+        &:first-child{
+          padding-left: 20px;
+        }
+        &:last-child{
+          flex-grow: 3;
+          text-align: right;
+          padding-right: 20px;
+        }
+        h3{
+          padding: 0;
+          margin: 0;
+          margin-right: 30px
+        }
+      }
+    }
   }
   h1{
     color: #1a6936;
