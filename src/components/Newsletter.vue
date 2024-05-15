@@ -1,24 +1,37 @@
 <script setup lang="ts">
 
-import {computed, onMounted, ref, Ref} from "vue";
+import {computed, watch, onMounted, ref, Ref} from "vue";
 import { invoke } from "@tauri-apps/api";
 import { marked } from "marked";
 import CopybleText from "./CopybleText.vue";
 import  NewsletterModal  from "./NewsletterModal.vue";
+import { useMagicKeys } from '@vueuse/core';
+const { current } = useMagicKeys()
+
+const keys = computed(()=>Array.from(current));
+
+watch(keys,(keysNow,keysthen)=>{
+  console.log(window.getSelection()?.toString())
+  window.getSelection()?.getRangeAt
+  console.log(keysNow,keysthen)
+  const sel = window.getSelection();
+  if(sel){
+    var range = sel.getRangeAt(0).cloneRange();
+    let  string = range.toString();
+    string = `**${string}**`;
+
+    //sel.addRange(range);
+        
+  }
+})
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 const markDownText  = ref("");
 const htmlMarkdown = computed(()=>{
-  return marked.parse(markDownText.value);
+  return marked(markDownText.value,{async:false})
+  //return marked.parse(markDownText.value);
 })
 
-const newsletterText = ref(null);
-onMounted(()=>{
-  if(newsletterText.value){
-    newsletterText.value.focus();
-  }
-
-})
 const englishMarkdown = ref("");
 const englishHtml = computed(()=>{
 
@@ -56,10 +69,13 @@ const devtoDraft = async ()=>{
 <template>
   <h1>MonDev station</h1>
     <div class="row">
-      <div>
+      <div class="full">
         <h3>Italian Markdown</h3> 
-        <textarea v-model="markDownText" ref="newsletterText"></textarea>
+        <textarea autofocus v-model="markDownText" ref="newsletterText"></textarea>
       </div>
+    </div>
+
+    <div class="row">
       <CopybleText id="markdownPreview" title="Italian Html" :text="htmlMarkdown"></CopybleText>
       
     <button class="campaignButton" @click="showModal(Langs.IT)">Create campaign</button>

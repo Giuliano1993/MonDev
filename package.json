@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^1.5.2",
+    "@vueuse/core": "^10.9.0",
     "marked": "^12.0.1",
     "tauri-plugin-stronghold-api": "github:tauri-apps/tauri-plugin-stronghold#v1",
     "vue": "^3.3.4"

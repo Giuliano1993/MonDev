@@ -102,6 +102,9 @@ const showConfigModal = ref(false);
     & > * {
       flex-basis: calc(50% - 10px);
     }
+    & > .full{
+      flex-basis: 100%;
+    }
     & > button{
       flex-basis: 100%;
     }
