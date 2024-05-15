@@ -58,7 +58,7 @@ pub async fn get_correction(text: String) -> OpenAiCompletion{
           Find those errors in the text you receive. \n
           Return the result in a json formatted string. \n
           The json keys for each error should be: \n
-          location: the section of the article where the error si located, \n
+          location: the section, title or subtitle of the article where the error si located, \n
           errorType: the type of the error: should be one of [Misspelling, Grammar, Capitalization, Clarity], \n
           error: the wrong test,\n
           correction: the correct text"
