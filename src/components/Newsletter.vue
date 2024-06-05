@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {computed, watch, onMounted, ref, Ref} from "vue";
+import {computed, watch, ref, Ref} from "vue";
 import { invoke } from "@tauri-apps/api";
 import { marked } from "marked";
 import CopybleText from "./CopybleText.vue";
@@ -28,14 +28,14 @@ watch(keys,(keysNow,keysthen)=>{
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 const markDownText  = ref("");
 const htmlMarkdown = computed(()=>{
-  return marked(markDownText.value,{async:false})
+  return marked(markDownText.value,{async:false}).toString()
   //return marked.parse(markDownText.value);
 })
 
 const englishMarkdown = ref("");
 const englishHtml = computed(()=>{
 
-  return marked.parse(englishMarkdown.value);
+  return marked.parse(englishMarkdown.value).toString();
 });
 const showCampaignModal = ref(false);
 enum Langs{

@@ -6,15 +6,11 @@ enum Langs{
   EN = "En",
   IT = "IT"
 }
-const props = defineProps({
-  content: {
-    type: String || Promise<string>,
-    required: true
-  },
-  lang:{
-    type: Langs || null
-  }
-})
+const props = defineProps<{
+  content: string|Promise<string>,
+  lang: Langs|null
+}>()
+
 defineEmits([
   'close'
 ])
@@ -26,7 +22,7 @@ const campaingnName = ref(props.lang == "En" ? " - EN" : " - IT");
 const subject = ref(preSubjText);
 const previewText = ref("");
 const recipients: Ref<null|Number> = ref(preRecipientGroup);
-const content = ref(props.content || "");
+  const content = ref<string>(typeof props.content == 'string' ? props.content : '')
 
 
 

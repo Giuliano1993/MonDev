@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, ref, Ref} from "vue";
+import {ref, Ref} from "vue";
 
 import ConfigModal from "./components/ConfigModal.vue";
 import Newsletter from "./components/Newsletter.vue";
