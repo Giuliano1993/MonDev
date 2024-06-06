@@ -12,10 +12,11 @@ const props = defineProps({
   title: String
 })
 defineEmits([])
+
+const expanded = ref(false);
 const justCopied = ref(false);
 const copyText = ()=>{
   justCopied.value = true;
-  console.log('ciao')
 
   console.log(props.text)
   writeText(props.text)
@@ -25,10 +26,12 @@ const copyText = ()=>{
 </script>
 
 <template>
-  <div id="{{ id }}">
+  <div :id="id">
     <h3>{{title}}</h3> 
-    <div>{{ text }}</div>
-    <button @click="copyText">{{ !justCopied ? "Copy" : "Copied"}}</button> 
+    <button @click="expanded = !expanded">{{ !expanded ? "Expand" : "Collapse"}}</button> 
+
+    <div v-if="expanded">{{ text }}</div>
+    <button v-if="expanded" @click="copyText">{{ !justCopied ? "Copy" : "Copied"}}</button> 
     <!-- <button @click="openFile">Get from file</button> -->
   </div>
 </template>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
-defineProps([])
+const props = defineProps([
+  "large"
+])
 defineEmits(['close'])
 
 
@@ -9,7 +11,7 @@ defineEmits(['close'])
 <template>
   <div class="modal-overlay" >
     <div class="modal-container">
-      <div class="modal-body">
+      <div class="modal-body" :class="props.large ? 'large' : ''">
         <div @click="$emit('close')" class="close-modal">x</div>
         <slot></slot>
       </div>
@@ -25,6 +27,8 @@ defineEmits(['close'])
     top: 0;
     bottom: 0;
     background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
   }
   .modal-container{
     width: 100%;
@@ -39,6 +43,9 @@ defineEmits(['close'])
       border-radius: 10px;
       flex-direction: column;
       gap: 10px;
+      &.large {
+        width: 60%;
+      }
       & > .close-modal{
         text-align: right;
         cursor: pointer;

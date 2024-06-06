@@ -30,7 +30,6 @@ pub fn get_secret(key: &str) ->String{
         None => () 
     }
     format!("{}",value)
-    //format!("ciao")
 }
 
 pub fn get_secret_backend(key: &str) -> String {

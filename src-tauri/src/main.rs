@@ -27,7 +27,7 @@ async fn translate(text: String) -> String {
 
 fn main() {
 
-  //let config = CustomMenuItem::new("config".to_string(), "Config");
+  
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![

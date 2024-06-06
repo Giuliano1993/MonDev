@@ -8,7 +8,8 @@ enum Langs{
 }
 const props = defineProps<{
   content: string|Promise<string>,
-  lang: Langs|null
+  lang: Langs|null,
+  large?: Boolean
 }>()
 
 defineEmits([
@@ -39,10 +40,13 @@ const createCampagin = ()=>{
     console.log(r)
   })
 }
+
+
+
 </script>
 
 <template>
- <Modal @close="$emit('close')">
+ <Modal @close="$emit('close')" :large="props.large">
     <div>
       <label>Nome Campagna</label>
       <input type="text" v-model="campaingnName">
@@ -67,7 +71,7 @@ const createCampagin = ()=>{
     </div>
     <div>
       <label>Content</label>
-      <textarea v-model="content"></textarea>
+      <textarea v-model="content" rows="10"></textarea>
     </div>
     <button @click="createCampagin">Create Campaign</button>
  </Modal>
@@ -79,5 +83,9 @@ div{
   flex-direction: column;
   margin-top: 15px;
   margin-bottom: 15px;
+}
+div{
+
+  &>textarea{background-color: #0e0e0e;}
 }
 </style>

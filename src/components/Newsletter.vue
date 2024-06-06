@@ -47,8 +47,6 @@ const campaingLang: Ref<null|Langs>= ref(null);
 const translateNewsletter = async ()=>{
 
   invoke("translate",{text:markDownText.value}).then((r)=>{
-    console.log(r)
-    console.log('tutto fatto');
     englishMarkdown.value = String(r);
   })
  
@@ -71,28 +69,39 @@ const devtoDraft = async ()=>{
     <div class="row">
       <div class="full">
         <h3>Italian Markdown</h3> 
-        <textarea autofocus v-model="markDownText" ref="newsletterText"></textarea>
+        <textarea autofocus v-model="markDownText" ref="newsletterText" rows="10"></textarea>
       </div>
     </div>
 
+
     <div class="row">
-      <CopybleText id="markdownPreview" title="Italian Html" :text="htmlMarkdown"></CopybleText>
-      
-    <button class="campaignButton" @click="showModal(Langs.IT)">Create campaign</button>
-    </div>
-    <button @click="translateNewsletter">Translate newsletter</button>
-    <div class="row">
+      <CopybleText id="markdownPreview" title="Italian Html" :text="htmlMarkdown"></CopybleText>  
       <CopybleText id="translatedMarkdown" title="English Markdown" :text="englishMarkdown"></CopybleText>
       <CopybleText id="translatedHtml" title="English Html" :text="englishHtml"></CopybleText> 
       
-      <button @click="showModal(Langs.EN)">Create  campaign</button>
+    </div>
+    <div class="row action">
+      <button class="campaignButton" @click="showModal(Langs.IT)">Create Italian campaign</button>
+      <button @click="translateNewsletter">Translate newsletter</button>
+      <button @click="showModal(Langs.EN)">Create English campaign</button>
       <button @click="devtoDraft">Prepare Article</button>
     </div>
-    <NewsletterModal :lang="campaingLang" v-if="showCampaignModal" @close="showCampaignModal = false" :content="campaingLang == Langs.EN ? englishHtml : htmlMarkdown"></NewsletterModal>
+    <NewsletterModal :large="true" :lang="campaingLang" v-if="showCampaignModal" @close="showCampaignModal = false" :content="campaingLang == Langs.EN ? englishHtml : htmlMarkdown"></NewsletterModal>
 </template>
 
 <style scoped>
+h1{
+  margin: 20px auto;
+}
+
 #markdownPreview{
       border: 2px solid #1a6936;
-    }
+}
+    
+textarea{
+  width: 100%;
+  padding: 0;
+  resize: vertical;
+}
+
 </style>

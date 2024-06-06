@@ -48,6 +48,23 @@ const showConfigModal = ref(false);
 </template>
 
 <style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h3{
+  margin: 10px auto;
+}
+.row{
+  &.action{
+    flex-direction: row;
+    button{
+      flex-basis: auto;
+      flex-grow: 1;
+    }
+  }
+}
 .container{
   textarea{
     border: none;
@@ -100,7 +117,8 @@ const showConfigModal = ref(false);
     margin-bottom: 10px;
     flex-wrap: wrap;
     & > * {
-      flex-basis: calc(50% - 10px);
+      /*flex-basis: calc(50% - 10px);*/
+      flex-grow: 1;
     }
     & > .full{
       flex-basis: 100%;
