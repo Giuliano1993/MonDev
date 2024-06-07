@@ -86,7 +86,12 @@ const devtoDraft = async ()=>{
       <button @click="showModal(Langs.EN)">Create English campaign</button>
       <button @click="devtoDraft">Prepare Article</button>
     </div>
-    <NewsletterModal :large="true" :lang="campaingLang" v-if="showCampaignModal" @close="showCampaignModal = false" :content="campaingLang == Langs.EN ? englishHtml : htmlMarkdown"></NewsletterModal>
+    <NewsletterModal :large="true" 
+      :lang="campaingLang" 
+      v-if="showCampaignModal" 
+      @close="showCampaignModal = false" 
+      :content="campaingLang == Langs.EN ? englishHtml : htmlMarkdown"
+      ></NewsletterModal>
 </template>
 
 <style scoped>

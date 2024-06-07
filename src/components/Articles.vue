@@ -25,7 +25,7 @@ const getCorrections = function(){
 </script>
 
 <template>
-  <textarea v-model="articleText"></textarea>
+  <textarea v-model="articleText" rows="10"></textarea>
   <button @click="getCorrections">Get Corrections</button>
   <table>
     <thead>

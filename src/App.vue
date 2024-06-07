@@ -10,7 +10,8 @@ import Articles from "./components/Articles.vue";
 enum Menu{
   NEWSLETTER = "newsletter",
   ARTICLES = "articles",
-  POSTS = "posts"
+  POSTS = "posts",
+  INVOICES = "invoices",
 }
 
 const window: Ref<null|Menu>= ref(null);
@@ -29,6 +30,7 @@ const showConfigModal = ref(false);
         <li :class="window === Menu.NEWSLETTER ? 'active' : ''" @click="window = Menu.NEWSLETTER">Newsletter</li>
         <li :class="window === Menu.ARTICLES ? 'active' : ''" @click="window = Menu.ARTICLES">Articles</li>
         <li :class="window === Menu.POSTS ? 'active' : ''" @click="window = Menu.POSTS">Posts</li>
+        <li :class="window === Menu.INVOICES ? 'active' : ''" @click="window = Menu.INVOICES">Invoices</li>
         <li>
           <button @click="showConfigModal = true">Show Configs</button>
         </li>
