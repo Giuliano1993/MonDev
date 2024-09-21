@@ -25,7 +25,7 @@ const showConfigModal = ref(false);
   <div class="container">
     <nav>
       <ul>
-        <li><h3>GhostyLab</h3></li>
+        <li><h3>GhostyLab  </h3></li>
         <li :class="window === Menu.NEWSLETTER ? 'active' : ''" @click="window = Menu.NEWSLETTER">Newsletter</li>
         <li :class="window === Menu.ARTICLES ? 'active' : ''" @click="window = Menu.ARTICLES">Articles</li>
         <li :class="window === Menu.POSTS ? 'active' : ''" @click="window = Menu.POSTS">Posts</li>
