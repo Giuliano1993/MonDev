@@ -10,8 +10,10 @@
 - [] save and open file ( so i can work sinked with obsidian )
 - [] preview: open view with html preview
 - [] newsletter history
-- [] create mdev.to article draft
+- [] create dev.to article draft
 - [] confirm message on campaing creation
 - [] loader for translation
 - [] linkedin post area
-- [] support multiple IA model ( connect with ollama running models)
+- [] support multiple IA model ( connect with ollama running models) 
+- [] add autosave while writing artilce
+- [] implement ideas organizer
